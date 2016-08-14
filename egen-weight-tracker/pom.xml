@@ -5,4 +5,147 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Egen Weight Tracker</name>
   <description>Egen's Code Challenge </description>
+  <!-- Hold most of the versions to be used in all the components -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>4.1.6.RELEASE</spring.version>
+    <spring.boot.version>1.4.0.RELEASE</spring.boot.version>
+    <log4j.version>2.6</log4j.version>
+    <mongodb.driver.version>3.3.0</mongodb.driver.version>
+    <spring.mongodb.version>1.9.2.RELEASE</spring.mongodb.version>
+    <easy.rule.version>2.2.0</easy.rule.version>
+    <morphia.version>1.2.1</morphia.version>
+  </properties>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.19.1</version>
+           <configuration>
+	          <additionalClasspathElements>
+	            <additionalClasspathElement>conf</additionalClasspathElement>
+	          </additionalClasspathElements>
+	        </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- spring-context which provides core functionality -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>org.springframework</groupId> -->
+<!-- 		<artifactId>spring-context</artifactId> -->
+<!-- 		<version>${spring.version}</version> -->
+<!-- 		<type>jar</type> -->
+<!--         <scope>compile</scope> -->
+<!-- 	</dependency> -->
+
+	<!-- The spring-aop module provides an AOP Alliance-compliant aspect-oriented 
+		programming implementation allowing you to define -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>org.springframework</groupId> -->
+<!-- 		<artifactId>spring-aop</artifactId> -->
+<!-- 		<version>${spring.version}</version> -->
+<!-- 		<type>jar</type> -->
+<!--         <scope>compile</scope> -->
+<!-- 	</dependency> -->
+
+	<!-- The spring-webmvc module (also known as the Web-Servlet module) contains 
+		Spring’s model-view-controller (MVC) and REST Web Services implementation 
+		for web applications -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>org.springframework</groupId> -->
+<!-- 		<artifactId>spring-webmvc</artifactId> -->
+<!-- 		<version>${spring.version}</version> -->
+<!-- 		<type>jar</type> -->
+<!--         <scope>compile</scope> -->
+<!-- 	</dependency> -->
+
+	<!-- The spring-web module provides basic web-oriented integration features 
+		such as multipart file upload functionality and the initialization of the 
+		IoC container using Servlet listeners and a web-oriented application context -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter</artifactId>
+	    <version>${spring.boot.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-web</artifactId>
+	    <version>${spring.boot.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-test</artifactId>
+	    <version>${spring.boot.version}</version>
+	</dependency>		
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
+<!-- 	<dependency> -->
+<!-- 	    <groupId>org.springframework.boot</groupId> -->
+<!-- 	    <artifactId>spring-boot-starter-data-mongodb</artifactId> -->
+<!-- 	    <version>${spring.boot.version}</version> -->
+<!-- 	</dependency> -->
+		
+<!-- 	<dependency> -->
+<!--         <groupId>org.springframework</groupId> -->
+<!--         <artifactId>spring-orm</artifactId> -->
+<!--         <version>${spring.version}</version> -->
+<!--         <type>jar</type> -->
+<!--         <scope>compile</scope> -->
+<!--     </dependency> -->
+	<dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-api</artifactId>
+		<version>${log4j.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-jcl</artifactId>
+	    <version>${log4j.version}</version>
+	 </dependency>
+	<dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-core</artifactId>
+	    <version>${log4j.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-slf4j-impl</artifactId>
+	    <version>${log4j.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongo-java-driver</artifactId>
+	    <version>${mongodb.driver.version}</version>
+	</dependency>
+    <dependency>
+        <groupId>org.mongodb.morphia</groupId>
+        <artifactId>morphia</artifactId>
+        <version>${morphia.version}</version>
+    </dependency>
+	<dependency>
+	    <groupId>org.easyrules</groupId>
+	    <artifactId>easyrules-core</artifactId>
+	    <version>${easy.rule.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+<!-- 	<dependency> -->
+<!-- 	    <groupId>org.springframework.data</groupId> -->
+<!-- 	    <artifactId>spring-data-mongodb</artifactId> -->
+<!-- 	    <version>${spring.mongodb.version}</version> -->
+<!-- 	</dependency> -->
+  </dependencies>
 </project>
