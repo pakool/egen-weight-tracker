@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="FATAL">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss.SSS}] [%-5level] %c - %msg%n"/>
+        </Console>
+        <File name="MyFile" fileName="C:\Users\fcastilloguerrero\pako\logs\repgen\global.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss.SSS}] [%-5level] %c - %msg%n"/>
+        </File>
+        <File name="MyFileS" fileName="C:\Users\fcastilloguerrero\pako\logs\repgen\spring.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss.SSS}] [%-5level] %c - %msg%n"/>
+        </File>
+        <File name="egen" fileName="C:\Users\fcastilloguerrero\pako\logs\repgen\egen.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss.SSS}] [%-5level] %c - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+    
+    	<Root level="error">
+            <AppenderRef ref="Console" level="error" />
+            <AppenderRef ref="MyFile"/>
+        </Root>
+        	
+    	<Logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="trace" >
+    		<AppenderRef ref="MyFileS" level="debug" />
+    	</Logger>
+    	
+    	<Logger name="org.pako.egen.weight"  level="debug">
+    		<AppenderRef ref="egen" level="debug" />
+    		
+    	</Logger>    	
+    	
+    	<!-- 
+	    	<Logger name="org.springframework.jdbc.core.JdbcTemplate" level="trace" />
+	    	<Logger name="org.springframework.jdbc.core" level="debug" />
+    	 -->
+    	<Logger name="java.sql.ResultSet" level="trace" />
+    	
+        
+    </Loggers>
+</Configuration>
