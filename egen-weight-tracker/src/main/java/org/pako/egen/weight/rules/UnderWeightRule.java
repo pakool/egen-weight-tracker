@@ -23,6 +23,8 @@ public class UnderWeightRule extends WrightRule {
 	public boolean evaluate() {
 		Integer mixAcceptableWeight = propertyManager.getMinAcceptableWeight();
 
+		System.out.println("Current value: " + getCurrentValue() + " Base weight: " + getBaseweight() + " Min Acceptable " + mixAcceptableWeight);
+
 		/** If the parameter is null, throw an invalid parameter exception **/
 		if(mixAcceptableWeight == null || getCurrentValue() == null || getBaseweight() == null){
 			throw new InvalidParameterException("The Maximum acceptable percentage is null");
