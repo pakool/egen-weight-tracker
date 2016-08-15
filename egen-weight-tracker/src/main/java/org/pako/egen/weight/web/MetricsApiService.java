@@ -8,6 +8,7 @@ import java.util.List;
 import org.pako.egen.weight.bo.MetricsBo;
 import org.pako.egen.weight.db.entity.MetricEntity;
 import org.pako.egen.weight.web.bean.IncomingMetricBean;
+import org.pako.egen.weight.web.bean.IncomingRangeBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,22 @@ public class MetricsApiService {
 	}
 
 	/**
+	 * Expose the service returning the list of all the metrics
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/readByRange/", method = RequestMethod.GET)
+	public ResponseEntity<List<MetricEntity>> listAllMetricsInRange(@RequestBody IncomingRangeBean incomingRangeBean) {
+		List<MetricEntity> metrics = metricsBo.getMetricsList(incomingRangeBean.getInitialTimeStamp(), incomingRangeBean.getEndingTimeStamp());
+		if (metrics.isEmpty()) {
+			return new ResponseEntity<List<MetricEntity>>(HttpStatus.NO_CONTENT);// You
+
+		}
+		return new ResponseEntity<List<MetricEntity>>(metrics, HttpStatus.OK);
+	}
+
+
+	/**
 	 * Create a new metric with the specified parameters
 	 *
 	 * @param incomingMetricBean
@@ -71,6 +88,6 @@ public class MetricsApiService {
 
 			metricsBo.addNewMetric(entity);
 		}
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

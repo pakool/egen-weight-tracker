@@ -73,6 +73,17 @@ public class MetricsBo {
 	}
 
 	/**
+	 * Return the list of metrics ranging in the two timestamps
+	 *
+	 * @param t1
+	 * @param t2
+	 * @return
+	 */
+	public List<MetricEntity> getMetricsList(Long t1, Long t2){
+		return metricsConnectionDao.loadMetricsForTimeRange(t1, t2);
+	}
+
+	/**
 	 * Trigger the validation rules and store the record in the database
 	 *
 	 * @note According to the specs, there is no filtering required after applying the rules. Meaning that
