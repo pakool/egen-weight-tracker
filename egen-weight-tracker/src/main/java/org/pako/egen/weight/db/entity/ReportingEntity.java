@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.pako.egen.weight.db;
+package org.pako.egen.weight.db.entity;
 
 /**
  * Represents the global information that needs to be contained in a reporting implementation

@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.pako.egen.weight.db;
+package org.pako.egen.weight.db.entity;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;

@@ -1,5 +1,6 @@
 package org.pako.egen.weight.rules;
 
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 
 import org.easyrules.annotation.Rule;
@@ -15,7 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 @SpringRule
 @Rule(name="Over Weight Rule",description="This rule will be triggered when the base weight is 10% bigger than the base value")
-public class OverWeightRule extends WrightRule{
+public class OverWeightRule extends WrightRule implements Serializable{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1955508490651234848L;
 
 	/**
 	 * Return true if the value exceeds the threshold
@@ -23,13 +29,15 @@ public class OverWeightRule extends WrightRule{
 	 * @see org.pako.egen.weight.rules.WrightRule#evaluate()
 	 */
 	@Override
-	public boolean evaluate() throws InvalidParameterException{
+	public boolean evaluate(){
 		Integer maxAcceptableWeight = propertyManager.getMaxAcceptableWeight();
-
+		System.out.println("Inside Over Weight");
 		/** If the parameter is null, throw an invalid parameter exception **/
 		if(maxAcceptableWeight == null || getCurrentValue() == null || getBaseweight() == null){
-			throw new InvalidParameterException("The Maximum acceptable percentage is null");
+			return false;
 		}
+
+		System.out.println("Emulating higher. . ");
 
 		LOG.debug("Current value: " + getCurrentValue() + " Base weight: " + getBaseweight() + maxAcceptableWeight);
 
@@ -46,7 +54,12 @@ public class OverWeightRule extends WrightRule{
 	 */
 	@Override
 	public void execute() throws InvalidParameterException{
-		//		EXECUTE MONGO DB
-		System.out.println("Execute mondo db insert");
+		// TODO Auto-generated method stub
+		System.out.println("Weight [" + getCurrentValue() + "] is higher than the required size. Maximym size is  " + propertyManager.getMaxAcceptableWeight()/100 * getBaseweight() );
+
+		System.out.println("\n\n\n************************************************************************************************");
+		System.out.println("\t\t\tEmulating mongo db activity save . . .");
+		System.out.println("************************************************************************************************");
+
 	}
 }

@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.pako.egen.weight.db;
+package org.pako.egen.weight.db.entity;
 
 /**
  * Audit entity containing information of when was the system accessed to retrieve the information

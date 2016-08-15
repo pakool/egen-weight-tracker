@@ -35,12 +35,18 @@ public class WeightRuleTest extends TestCase {
 
 	private static final Integer baseWeight = 50;
 
-	private static final Integer readWeight = 25;
+	private static final Integer lowerMinReadWeight = 25;
+
+	private static final Integer higherMinReadWeight = 47;
+
+	private static final Integer lowerMaxReadWeight = 54;
+
+	private static final Integer higherMaxReadWeight = 77;
 
 	//	@Autowired
 	//	RulesEngine rulesEngine;
 
-	@Test
+	//	@Test
 	public void testMinWeight(){
 		//		SpringBootContextLoader context = new SpringBootContextLoader();
 		CompositeRule compositeRule = new CompositeRule("cr");
@@ -53,10 +59,36 @@ public class WeightRuleTest extends TestCase {
 		System.out.println("The underweight rule injected " + underWeightRule);
 		System.out.println("The underweight rule injected END END END END ");
 		underWeightRule.setBaseweight(baseWeight);
-		underWeightRule.setCurrentValue(readWeight);
+		underWeightRule.setCurrentValue(lowerMinReadWeight);
+
+
+
+		//		overWeightRule.setBaseweight(baseWeight);
+		//		overWeightRule.setCurrentValue(readWeight);
+
+		//		compositeRule.addRule(overWeightRule);
+		//		compositeRule.addRule(underWeightRule);
+		//        compositeRule.addRule(rule2);
+
+
+		rulesEngine.registerRule(underWeightRule);
+
+		overWeightRule.setBaseweight(baseWeight);
+		overWeightRule.setCurrentValue(lowerMaxReadWeight);
+
+		//		compositeRule.addRule(overWeightRule);
+
+
+		//		rulesEngine.registerRule(compositeRule);
+
+		rulesEngine.fireRules();
+
+
+
+		underWeightRule.setBaseweight(baseWeight);
+		underWeightRule.setCurrentValue(higherMinReadWeight);
 
 		compositeRule.addRule(underWeightRule);
-		//        compositeRule.addRule(rule2);
 
 		rulesEngine.registerRule(compositeRule);
 
@@ -64,4 +96,59 @@ public class WeightRuleTest extends TestCase {
 
 		//		rulesEngine.fireRules();
 	}
+
+	//	@Test
+	public void testMaxWeight(){
+		//		SpringBootContextLoader context = new SpringBootContextLoader();
+		CompositeRule compositeRule = new CompositeRule("cr");
+		RulesEngine rulesEngine = aNewRulesEngine().build();
+
+
+		//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		//		UnderWeightRule underWeightRule = context.getBean(UnderWeightRule.class);
+
+		System.out.println("The underweight rule injected " + underWeightRule);
+		System.out.println("The underweight rule injected END END END END ");
+		underWeightRule.setBaseweight(baseWeight);
+		underWeightRule.setCurrentValue(lowerMinReadWeight);
+
+		overWeightRule.setBaseweight(baseWeight);
+		overWeightRule.setCurrentValue(lowerMinReadWeight);
+
+		compositeRule.addRule(overWeightRule);
+		//		compositeRule.addRule(underWeightRule);
+		//        compositeRule.addRule(rule2);
+
+		rulesEngine.registerRule(compositeRule);
+
+		//		rulesEngine.fireRules();
+
+		//		rulesEngine.fireRules();
+	}
+
+	@Test
+	public void testBothWeights(){
+		System.out.println("Both Weights. . . ");
+
+		//		CompositeRule compositeRule = new CompositeRule("cr");
+		RulesEngine rulesEngine = aNewRulesEngine().withSkipOnFirstAppliedRule(true)
+				.withSkipOnFirstFailedRule(true)
+				.build();
+
+		underWeightRule.setBaseweight(baseWeight);
+		underWeightRule.setCurrentValue(higherMinReadWeight);
+		overWeightRule.setBaseweight(baseWeight);
+		overWeightRule.setCurrentValue(lowerMaxReadWeight);
+
+		//		compositeRule.addRule(underWeightRule);
+
+		//		compositeRule.addRule(overWeightRule);
+
+		rulesEngine.registerRule(underWeightRule);
+		rulesEngine.registerRule(overWeightRule);
+
+		rulesEngine.fireRules();
+	}
+
+
 }

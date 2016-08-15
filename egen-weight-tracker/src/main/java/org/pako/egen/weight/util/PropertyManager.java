@@ -23,6 +23,10 @@ public class PropertyManager {
 	@Value("${application.config.min.weight}")
 	private Integer minAcceptableWeight;
 
+	/** Name of the mongo db instance **/
+	@Value("${application.config.db.name}")
+	private String dbName;
+
 	/**
 	 * Return the Maximum Acceptable Weight
 	 *
@@ -39,5 +43,14 @@ public class PropertyManager {
 	 */
 	public Integer getMinAcceptableWeight(){
 		return minAcceptableWeight;
+	}
+
+	/**
+	 * Return the MongoDB name to be used
+	 *
+	 * @return
+	 */
+	public String getDbName(){
+		return dbName;
 	}
 }
