@@ -27,6 +27,14 @@ public class PropertyManager {
 	@Value("${application.config.db.name}")
 	private String dbName;
 
+	/** Name of the mongo db instance **/
+	@Value("${application.config.db.server}")
+	private String dbServer;
+
+	/** Name of the mongo db instance **/
+	@Value("${application.config.db.port}")
+	private String dbPort;
+
 	/**
 	 * Return the Maximum Acceptable Weight
 	 *
@@ -52,5 +60,23 @@ public class PropertyManager {
 	 */
 	public String getDbName(){
 		return dbName;
+	}
+
+	/**
+	 * Return the server address for MongoDB
+	 *
+	 * @return
+	 */
+	public String getDbServer(){
+		return dbServer;
+	}
+
+	/**
+	 * Return the db server port
+	 *
+	 * @return
+	 */
+	public String getDbPort(){
+		return dbPort;
 	}
 }

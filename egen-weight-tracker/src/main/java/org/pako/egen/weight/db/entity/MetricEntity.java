@@ -23,6 +23,12 @@ public class MetricEntity extends BaseEntity {
 	/** Time when the measurement was done **/
 	private Long measurementTime;
 
+	/** True if the measurement falls into the threshold **/
+	private String validMetric;
+
+	/** If the metric is invalid, populate the description **/
+	private String invalidDescription;
+
 	/**
 	 * @return the baseWeight
 	 */
@@ -63,5 +69,33 @@ public class MetricEntity extends BaseEntity {
 	 */
 	public void setMeasurementTime(Long measurementTime) {
 		this.measurementTime = measurementTime;
+	}
+
+	/**
+	 * @return the isValidMetric
+	 */
+	public String getValidMetric() {
+		return validMetric;
+	}
+
+	/**
+	 * @param isValidMetric the isValidMetric to set
+	 */
+	public void setValidMetric(String validMetric) {
+		this.validMetric = validMetric;
+	}
+
+	/**
+	 * @return the invalidDescription
+	 */
+	public String getInvalidDescription() {
+		return invalidDescription;
+	}
+
+	/**
+	 * @param invalidDescription the invalidDescription to set
+	 */
+	public void setInvalidDescription(String invalidDescription) {
+		this.invalidDescription = invalidDescription;
 	}
 }

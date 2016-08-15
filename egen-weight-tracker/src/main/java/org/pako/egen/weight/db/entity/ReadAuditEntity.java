@@ -3,12 +3,15 @@
  */
 package org.pako.egen.weight.db.entity;
 
+import org.mongodb.morphia.annotations.Entity;
+
 /**
  * Audit entity containing information of when was the system accessed to retrieve the information
  *
  * @author Pako Castillo
  *
  */
+@Entity
 public class ReadAuditEntity extends BaseEntity {
 
 	/** Name of the user accessing the records in the system **/

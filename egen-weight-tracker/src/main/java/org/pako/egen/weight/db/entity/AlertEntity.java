@@ -10,7 +10,7 @@ import org.mongodb.morphia.annotations.Entity;
  *
  */
 @Entity
-public class AlertEntity extends BaseEntity {
+public class AlertEntity extends ReportingEntity {
 
 	/** Message of the alert **/
 	private String altertMessage;

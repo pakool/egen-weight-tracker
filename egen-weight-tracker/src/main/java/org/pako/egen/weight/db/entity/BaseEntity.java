@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 import org.mongodb.morphia.annotations.Version;
+import org.pako.egen.weight.util.StringUtils;
 
 /**
  * Base POJO containing shared data across all Mongo objects
@@ -24,11 +25,11 @@ public abstract class BaseEntity {
 	@Property("version")
 	private Long version;
 
-	/** Java timestamp representing the time when the object was created **/
-	private Long createDate;
+	/** Java timestamp representing the time when the object was created. Defaults to sysdate **/
+	private Long createDate = System.currentTimeMillis();
 
 	/** Java timestamp representing the time when the object was updated **/
-	private Long updateDate;
+	private Long updateDate = System.currentTimeMillis();
 
 	/** Username responsible for creating this object **/
 	private String createUserId;
@@ -118,5 +119,13 @@ public abstract class BaseEntity {
 	 */
 	public void setUpdateUserId(String updateUserId) {
 		this.updateUserId = updateUserId;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString(){
+		return StringUtils.reflectObject(this);
 	}
 }

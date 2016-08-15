@@ -9,6 +9,7 @@ import org.easyrules.api.RulesEngine;
 import org.easyrules.core.CompositeRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.pako.egen.weight.db.entity.MetricEntity;
 import org.pako.egen.weight.util.ApplicationConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,11 +28,16 @@ import junit.framework.TestCase;
 //@SpringBootContextLoader(classes = ServiceRunner.class)
 public class WeightRuleTest extends TestCase {
 
-	@Autowired
-	private OverWeightRule overWeightRule;
+	/** Rules Engine **/
+	private RulesEngine ruleEngine =aNewRulesEngine().withSkipOnFirstAppliedRule(true)
+			.withSkipOnFirstFailedRule(true)
+			.build();
 
 	@Autowired
-	private UnderWeightRule underWeightRule;
+	private WeightRule overWeightRule;
+
+	//	@Autowired
+	//	private UnderWeightRule underWeightRule;
 
 	private static final Integer baseWeight = 50;
 
@@ -43,57 +49,23 @@ public class WeightRuleTest extends TestCase {
 
 	private static final Integer higherMaxReadWeight = 77;
 
-	//	@Autowired
-	//	RulesEngine rulesEngine;
+	private void registerVaueAndFire(WeightRule rule, MetricEntity value){
+		ruleEngine.registerRule(rule);
+		rule.setMetric(value);
+		ruleEngine.fireRules();
+	}
 
 	//	@Test
 	public void testMinWeight(){
-		//		SpringBootContextLoader context = new SpringBootContextLoader();
-		CompositeRule compositeRule = new CompositeRule("cr");
 		RulesEngine rulesEngine = aNewRulesEngine().build();
 
-
-		//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		//		UnderWeightRule underWeightRule = context.getBean(UnderWeightRule.class);
-
-		System.out.println("The underweight rule injected " + underWeightRule);
-		System.out.println("The underweight rule injected END END END END ");
-		underWeightRule.setBaseweight(baseWeight);
-		underWeightRule.setCurrentValue(lowerMinReadWeight);
-
-
-
-		//		overWeightRule.setBaseweight(baseWeight);
-		//		overWeightRule.setCurrentValue(readWeight);
-
-		//		compositeRule.addRule(overWeightRule);
-		//		compositeRule.addRule(underWeightRule);
-		//        compositeRule.addRule(rule2);
-
-
-		rulesEngine.registerRule(underWeightRule);
-
-		overWeightRule.setBaseweight(baseWeight);
-		overWeightRule.setCurrentValue(lowerMaxReadWeight);
-
-		//		compositeRule.addRule(overWeightRule);
-
-
-		//		rulesEngine.registerRule(compositeRule);
-
-		rulesEngine.fireRules();
-
-
-
-		underWeightRule.setBaseweight(baseWeight);
-		underWeightRule.setCurrentValue(higherMinReadWeight);
-
-		compositeRule.addRule(underWeightRule);
-
-		rulesEngine.registerRule(compositeRule);
-
-		rulesEngine.fireRules();
-
+		//		System.out.println("The underweight rule injected " + underWeightRule);
+		//		System.out.println("The underweight rule injected END END END END ");
+		//		underWeightRule.setBaseweight(baseWeight);
+		//		underWeightRule.setCurrentValue(lowerMinReadWeight);
+		//
+		//		rulesEngine.registerRule(underWeightRule);
+		//
 		//		rulesEngine.fireRules();
 	}
 
@@ -107,13 +79,13 @@ public class WeightRuleTest extends TestCase {
 		//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		//		UnderWeightRule underWeightRule = context.getBean(UnderWeightRule.class);
 
-		System.out.println("The underweight rule injected " + underWeightRule);
+		//		System.out.println("The underweight rule injected " + underWeightRule);
 		System.out.println("The underweight rule injected END END END END ");
-		underWeightRule.setBaseweight(baseWeight);
-		underWeightRule.setCurrentValue(lowerMinReadWeight);
-
-		overWeightRule.setBaseweight(baseWeight);
-		overWeightRule.setCurrentValue(lowerMinReadWeight);
+		//		underWeightRule.setBaseweight(baseWeight);
+		//		underWeightRule.setCurrentValue(lowerMinReadWeight);
+		//
+		//		overWeightRule.setBaseweight(baseWeight);
+		//		overWeightRule.setCurrentValue(lowerMinReadWeight);
 
 		compositeRule.addRule(overWeightRule);
 		//		compositeRule.addRule(underWeightRule);
@@ -129,25 +101,37 @@ public class WeightRuleTest extends TestCase {
 	@Test
 	public void testBothWeights(){
 		System.out.println("Both Weights. . . ");
+		MetricEntity metric = new MetricEntity();
+		metric.setBaseWeight(baseWeight);
+		metric.setCalculatedWeight(higherMaxReadWeight);
 
-		//		CompositeRule compositeRule = new CompositeRule("cr");
-		RulesEngine rulesEngine = aNewRulesEngine().withSkipOnFirstAppliedRule(true)
-				.withSkipOnFirstFailedRule(true)
-				.build();
+		registerVaueAndFire(overWeightRule, metric);
 
-		underWeightRule.setBaseweight(baseWeight);
-		underWeightRule.setCurrentValue(higherMinReadWeight);
-		overWeightRule.setBaseweight(baseWeight);
-		overWeightRule.setCurrentValue(lowerMaxReadWeight);
+		System.out.println("Was alert created? " + overWeightRule.isAlertCreated);
 
-		//		compositeRule.addRule(underWeightRule);
+		//		metric = new MetricEntity();
+		//		metric.setBaseWeight(baseWeight);
+		//		metric.setCalculatedWeight(lowerMaxReadWeight);
+		//
+		//		registerVaueAndFire(overWeightRule, metric);
+		//
+		//		System.out.println("Was alert created? " + overWeightRule.isAlertCreated);
 
-		//		compositeRule.addRule(overWeightRule);
+		metric = new MetricEntity();
+		metric.setBaseWeight(baseWeight);
+		metric.setCalculatedWeight(lowerMinReadWeight);
 
-		rulesEngine.registerRule(underWeightRule);
-		rulesEngine.registerRule(overWeightRule);
+		registerVaueAndFire(overWeightRule, metric);
 
-		rulesEngine.fireRules();
+		System.out.println("Was alert created? " + overWeightRule.isAlertCreated);
+
+		//		metric = new MetricEntity();
+		//		metric.setBaseWeight(baseWeight);
+		//		metric.setCalculatedWeight(higherMinReadWeight);
+		//
+		//		registerVaueAndFire(underWeightRule, metric);
+		//
+		//		System.out.println("Was alert created? " + overWeightRule.isAlertCreated);
 	}
 
 

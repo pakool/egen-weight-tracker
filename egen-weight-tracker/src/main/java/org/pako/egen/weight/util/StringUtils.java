@@ -103,6 +103,16 @@ public class StringUtils {
 	}
 
 	/**
+	 * Return true if the specified string is a number
+	 *
+	 * @param s
+	 * @return
+	 */
+	public static boolean isNumber(String s){
+		return s != null && s.matches("[0-9]+");
+	}
+
+	/**
 	 * Return a base64 encoded String
 	 *
 	 * @param s
