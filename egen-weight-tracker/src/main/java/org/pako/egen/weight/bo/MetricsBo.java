@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.easyrules.api.RulesEngine;
 import org.pako.egen.weight.db.dao.MetricsConnectionDao;
 import org.pako.egen.weight.db.entity.MetricEntity;
+import org.pako.egen.weight.exception.ParameterException;
 import org.pako.egen.weight.rules.WeightRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -87,7 +88,11 @@ public class MetricsBo {
 			LOG.warn("Metric with ID " + metric.getId() + " has an invalid weight " );
 		}
 
-		metricsConnectionDao.saveMetric(metric);
+		try {
+			metricsConnectionDao.saveMetric(metric);
+		} catch (ParameterException e) {
+			LOG.error("There was a problem saving the metric ", e);
+		}
 		LOG.info("Metric " + metric.getId() + " successfully saved");
 	}
 }

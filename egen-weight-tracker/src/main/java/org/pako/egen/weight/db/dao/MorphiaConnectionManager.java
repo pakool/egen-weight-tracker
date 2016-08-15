@@ -140,14 +140,21 @@ public class MorphiaConnectionManager<T extends Object> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> findRecordsInTimeFrame(Long timestamp1, Long timestamp2, T c) {
-		if (timestamp1 != null && timestamp2 != null) {
+	public List<T> findRecordsInTimeFrame(Long timeStamp1, Long timeStamp2, T c) {
+
+		if (timeStamp1 != null && timeStamp1 != null) {
+
 			Query<T> timeStampQuery = (Query<T>) ds.createQuery(c.getClass());
 
-			if(timestamp2 > timestamp1){
+			if(timeStamp2 > timeStamp1){
 				timeStampQuery.and(
-						timeStampQuery.criteria("createDate").greaterThan(timestamp1),
-						timeStampQuery.criteria("createDate").lessThanOrEq(timestamp2)
+						timeStampQuery.criteria("createDate").greaterThan(timeStamp1),
+						timeStampQuery.criteria("createDate").lessThanOrEq(timeStamp2)
+						);
+			} else {
+				timeStampQuery.and(
+						timeStampQuery.criteria("createDate").greaterThan(timeStamp2),
+						timeStampQuery.criteria("createDate").lessThanOrEq(timeStamp1)
 						);
 			}
 

@@ -35,7 +35,7 @@ import com.mongodb.client.ListDatabasesIterable;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationConfig.class)
 @AutoConfigureMockMvc
-public class MetricConnectionManagertest {
+public class MetricConnectionManagerTest {
 
 	@Autowired
 	private MorphiaConnectionManager<MetricEntity> connectionManager;
@@ -92,6 +92,9 @@ public class MetricConnectionManagertest {
 
 	}
 
+	/**
+	 * Test the time range retrieval of a record
+	 */
 	@Test
 	public void testReadByTimeRange(){
 		Calendar calendar = Calendar.getInstance();
