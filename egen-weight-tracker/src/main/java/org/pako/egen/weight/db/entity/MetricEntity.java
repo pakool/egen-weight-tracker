@@ -3,6 +3,8 @@
  */
 package org.pako.egen.weight.db.entity;
 
+import java.util.Date;
+
 import org.mongodb.morphia.annotations.Entity;
 
 /**
@@ -22,6 +24,9 @@ public class MetricEntity extends BaseEntity {
 
 	/** Time when the measurement was done **/
 	private Long measurementTime;
+
+	/** User friendly measurement date **/
+	private Date userReadableMeasurementDate;
 
 	/** True if the measurement falls into the threshold **/
 	private String validMetric;
@@ -69,6 +74,21 @@ public class MetricEntity extends BaseEntity {
 	 */
 	public void setMeasurementTime(Long measurementTime) {
 		this.measurementTime = measurementTime;
+		userReadableMeasurementDate = new Date(measurementTime);
+	}
+
+	/**
+	 * @return the userReadableMeasurementDate
+	 */
+	public Date getUserReadableMeasurementDate() {
+		return userReadableMeasurementDate;
+	}
+
+	/**
+	 * @param userReadableMeasurementDate the userReadableMeasurementDate to set
+	 */
+	public void setUserReadableMeasurementDate(Date userReadableMeasurementDate) {
+		this.userReadableMeasurementDate = userReadableMeasurementDate;
 	}
 
 	/**

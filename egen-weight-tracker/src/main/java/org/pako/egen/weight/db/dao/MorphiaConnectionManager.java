@@ -56,20 +56,22 @@ public class MorphiaConnectionManager<T extends Object> {
 
 	/**
 	 * Load all the entities after the object is constructed
+	 *
 	 * @throws ParameterException
 	 */
 	@PostConstruct
-	private void loadEntities() throws ParameterException{
+	private void loadEntities() throws ParameterException {
 		String dbName = propertyManager.getDbName();
 		String dbServer = propertyManager.getDbServer();
 		String dbPort = propertyManager.getDbPort();
 
 		/** Throw an exception if the database name doesn't exist **/
-		if(dbName == null || dbServer == null){
+		if (dbName == null || dbServer == null) {
 			throw new ParameterException("The database server or instance name is null");
 		}
 		Morphia morphia = new Morphia();
-		mongoClient = StringUtils.isNumber(dbPort) ? new MongoClient(dbServer, Integer.valueOf(dbPort)) : new MongoClient(dbServer);
+		mongoClient = StringUtils.isNumber(dbPort) ? new MongoClient(dbServer, Integer.valueOf(dbPort))
+				: new MongoClient(dbServer);
 		morphia.map(AlertEntity.class, ExceptionEntity.class, MetricEntity.class, ReadAuditEntity.class);
 		ds = morphia.createDatastore(mongoClient, dbName);
 
@@ -77,9 +79,10 @@ public class MorphiaConnectionManager<T extends Object> {
 
 	/**
 	 * Return the local datastore
+	 *
 	 * @return
 	 */
-	public Datastore getDatastore(){
+	public Datastore getDatastore() {
 		return ds;
 	}
 
@@ -90,15 +93,16 @@ public class MorphiaConnectionManager<T extends Object> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Query<T> query(T c){
+	public Query<T> query(T c) {
 		return (Query<T>) ds.createQuery(c.getClass());
 	}
 
 	/**
 	 * Save the specified entity
+	 *
 	 * @return
 	 */
-	public Key<T> saveObject(T c){
+	public Key<T> saveObject(T c) {
 		return ds.save(c);
 	}
 
@@ -108,26 +112,53 @@ public class MorphiaConnectionManager<T extends Object> {
 	 * @param entity
 	 * @return
 	 */
-	public WriteResult removeObject(T c){
+	public WriteResult removeObject(T c) {
 		return ds.delete(c);
 	}
 
 	/**
 	 * Return all the records of type c
+	 *
 	 * @param c
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAllRecords(T c){
+	public List<T> findAllRecords(T c) {
 		DBCollection collection = ds.getCollection(c.getClass());
 		List<T> list = new ArrayList<T>();
 		DBCursor cursor = collection.find();
 		Mapper mapper = new Mapper();
 
-		/** Iterate through all the response, transform each DBObject into T, and add them to the list **/
-		if(cursor.hasNext()) {
+		/**
+		 * Iterate through all the response, transform each DBObject into T, and
+		 * add them to the list
+		 **/
+		if (cursor.hasNext()) {
 			list.add((T) mapper.fromDBObject(ds, c.getClass(), cursor.next(), new DefaultEntityCache()));
 		}
 
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> findRecordsInTimeFrame(Long timestamp1, Long timestamp2, T c) {
+		if (timestamp1 != null && timestamp2 != null) {
+			Query<T> timeStampQuery = (Query<T>) ds.createQuery(c.getClass());
+
+			if(timestamp2 > timestamp1){
+				timeStampQuery.and(
+						timeStampQuery.criteria("createDate").greaterThan(timestamp1),
+						timeStampQuery.criteria("createDate").lessThanOrEq(timestamp2)
+						);
+			}
+
+			/** Second option to write exclusively AND
+			timeStampQuery
+				.field("createDate").greaterThan(timestamp1)
+				.field("createDate").lessThanOrEq(timestamp2);
+			 **/
+
+			return timeStampQuery.asList();
+		}
+		return null;
 	}
 }
