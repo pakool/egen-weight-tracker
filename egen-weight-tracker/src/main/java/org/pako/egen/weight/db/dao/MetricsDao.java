@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class MetricsConnectionDao {
+public class MetricsDao {
 
 	/** Static Logger **/
 	protected static Logger LOG = LogManager.getLogger();

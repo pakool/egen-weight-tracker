@@ -12,6 +12,8 @@ import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Rule;
 import org.easyrules.core.BasicRule;
 import org.easyrules.spring.SpringRule;
+import org.pako.egen.weight.db.dao.AlertsDao;
+import org.pako.egen.weight.db.entity.AlertEntity;
 import org.pako.egen.weight.db.entity.MetricEntity;
 import org.pako.egen.weight.exception.ParameterException;
 import org.pako.egen.weight.util.PropertyManager;
@@ -33,6 +35,12 @@ public class WeightRule extends BasicRule {
 	/** Injected manager to extract the limit for the rule **/
 	@Autowired
 	protected PropertyManager propertyManager;
+
+	@Autowired
+	protected AlertsDao alertsDao;
+
+	/** Return true if an alert is created **/
+	protected boolean isAlertCreated;
 
 	/** Base weight **/
 	private Integer baseweight;
@@ -60,26 +68,15 @@ public class WeightRule extends BasicRule {
 		if(maxAcceptableWeight == null || mixAcceptableWeight == null || getCurrentValue() == null || getBaseweight() == null){
 			return false;
 		}
-		LOG.debug("Current value: " + getCurrentValue() + " Base weight: " + getBaseweight() + maxAcceptableWeight);
+		LOG.debug("Current value: " + getCurrentValue() + " Base weight: " + getBaseweight() + " Max Acceptable " + maxAcceptableWeight + " Min Acceptable " + mixAcceptableWeight);
 
-		/**  **/
+		/** The value is higher than expected **/
 		if(1- getBaseweight() / getCurrentValue() > maxAcceptableWeight/100){
-			System.out.println("Emulating higher. . " + this.getClass());
 			isHigherRule = true;
 		}
 
-
-
-		System.out.println("Emulating smaller. . " + this.getClass());
-
-		LOG.debug("Current value: " + getCurrentValue() + " Base weight: " + getBaseweight() + " Min Acceptable " + mixAcceptableWeight);
-
-		System.out.println("Weight [" + getCurrentValue() + "] is lower than the required size. [Acceptable percentage " +  propertyManager.getMinAcceptableWeight() + ", Baseline " + getBaseweight() + "] Minimum size is  " + (float)propertyManager.getMinAcceptableWeight()/100 * getBaseweight() + " Current Value / Base " + (float)getCurrentValue()/getBaseweight());
-		System.out.println(1- (float)getCurrentValue()/getBaseweight() + " > " + (float)mixAcceptableWeight/100);
-
-		/**  **/
+		/** The value is lower than expected **/
 		if(1- (float)getCurrentValue()/getBaseweight() > (float)mixAcceptableWeight/100){
-			System.out.println("Emulating lower. . " + this.getClass());
 			isLowerRule = true;
 		}
 
@@ -92,28 +89,34 @@ public class WeightRule extends BasicRule {
 	public void execute() throws InvalidParameterException{
 		isAlertCreated = true;
 
+		AlertEntity alert = new AlertEntity();
+		alert.setReportingTime(System.currentTimeMillis());
+		alert.setReportingClass(this.getClass().getName());
+		String alertMessage = null;
+
+		/** Lower rule is Underweight **/
 		if(isLowerRule){
-			System.out.println("This is a lower rule. . .");
+			alert.setReportingType("UNDERWEIGHT");
+			alertMessage = "The current weight " + getCurrentValue() + " is below the minimum expected: " + (getBaseweight() - propertyManager.getMinAcceptableWeight()/100 * getBaseweight());
 		}
 
+		/** Lower rule is Overweight **/
 		if(isHigherRule){
+			alert.setReportingType("OVERWEIGHT");
+			alertMessage = "The current weight " + getCurrentValue() + " is above the maximum expected: " + (getBaseweight() + propertyManager.getMaxAcceptableWeight()/100 * getBaseweight());
 			System.out.println("This is a higher rule. . .");
 		}
 
-		// TODO Auto-generated method stub
-		System.out.println("Weight [" + getCurrentValue() + "] is higher than the required size. Maximym size is  " + propertyManager.getMaxAcceptableWeight()/100 * getBaseweight() );
+		alert.setAlertMessage(alertMessage);
+		LOG.debug(alertMessage);
 
-		System.out.println("\n\n\n************************************************************************************************");
-		System.out.println("\t\t\tEmulating mongo db activity save . . .");
-		System.out.println("************************************************************************************************");
+		try {
+			alertsDao.saveAlert(alert);
+		} catch (ParameterException e) {
+			LOG.error("There was an error saving the alert in the DB ", e);
+		}
 
 	}
-
-	/** Return true if an alert is created **/
-	protected boolean isAlertCreated;
-
-	/** Metric to be assessed **/
-	//	private MetricEntity metric;
 
 	/**
 	 * @return the baseweight

@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.easyrules.api.RulesEngine;
-import org.pako.egen.weight.db.dao.MetricsConnectionDao;
+import org.pako.egen.weight.db.dao.MetricsDao;
 import org.pako.egen.weight.db.entity.MetricEntity;
 import org.pako.egen.weight.exception.ParameterException;
 import org.pako.egen.weight.rules.WeightRule;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class MetricsBo {
 
 	@Autowired
-	private MetricsConnectionDao metricsConnectionDao;
+	private MetricsDao metricsDao;
 
 	@Autowired
 	private WeightRule weightRule;
@@ -69,7 +69,7 @@ public class MetricsBo {
 	 * @return
 	 */
 	public List<MetricEntity> getMetricsList(){
-		return metricsConnectionDao.loadAllMetrics();
+		return metricsDao.loadAllMetrics();
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class MetricsBo {
 	 * @return
 	 */
 	public List<MetricEntity> getMetricsList(Long t1, Long t2){
-		return metricsConnectionDao.loadMetricsForTimeRange(t1, t2);
+		return metricsDao.loadMetricsForTimeRange(t1, t2);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class MetricsBo {
 		}
 
 		try {
-			metricsConnectionDao.saveMetric(metric);
+			metricsDao.saveMetric(metric);
 		} catch (ParameterException e) {
 			LOG.error("There was a problem saving the metric ", e);
 		}

@@ -13,20 +13,20 @@ import org.mongodb.morphia.annotations.Entity;
 public class AlertEntity extends ReportingEntity {
 
 	/** Message of the alert **/
-	private String altertMessage;
+	private String alertMessage;
 
 	/**
-	 * @return the altertMessage
+	 * @return the alertMessage
 	 */
-	public String getAltertMessage() {
-		return altertMessage;
+	public String getAlertMessage() {
+		return alertMessage;
 	}
 
 	/**
-	 * @param altertMessage the altertMessage to set
+	 * @param alertMessage the alertMessage to set
 	 */
-	public void setAltertMessage(String altertMessage) {
-		this.altertMessage = altertMessage;
+	public void setAlertMessage(String alertMessage) {
+		this.alertMessage = alertMessage;
 	}
 
 }
