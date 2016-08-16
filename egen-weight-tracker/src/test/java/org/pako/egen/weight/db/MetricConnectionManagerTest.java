@@ -14,9 +14,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
+import org.pako.egen.weight.core.ServiceRunner;
 import org.pako.egen.weight.db.dao.MorphiaConnectionManager;
 import org.pako.egen.weight.db.entity.MetricEntity;
-import org.pako.egen.weight.util.ApplicationConfig;
 import org.pako.egen.weight.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,14 +33,14 @@ import com.mongodb.client.ListDatabasesIterable;
  *
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ApplicationConfig.class)
+@SpringBootTest(classes = ServiceRunner.class)
 @AutoConfigureMockMvc
 public class MetricConnectionManagerTest {
 
 	@Autowired
 	private MorphiaConnectionManager<MetricEntity> connectionManager;
 
-	//	@Test
+	@Test
 	public void testDbConnection(){
 		Datastore ds = connectionManager.getDatastore();
 
@@ -52,7 +52,7 @@ public class MetricConnectionManagerTest {
 		System.out.println(StringUtils.reflectObject(l));
 	}
 
-	//	@Test
+	@Test
 	public void testMetricCrudOperations(){
 		MetricEntity entity = new MetricEntity();
 
@@ -98,15 +98,15 @@ public class MetricConnectionManagerTest {
 	@Test
 	public void testReadByTimeRange(){
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, -10);
+		calendar.add(Calendar.DAY_OF_MONTH, 500);
 		Long timestamp1 = calendar.getTime().getTime();
 
 		calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, 10);
+		calendar.add(Calendar.DAY_OF_MONTH, 550);
 		Long timestamp2 = calendar.getTime().getTime();
 
 		calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, 100);
+		calendar.add(Calendar.DAY_OF_MONTH, 525);
 		Long timestamp3 = calendar.getTime().getTime();
 
 		MetricEntity entity = new MetricEntity();

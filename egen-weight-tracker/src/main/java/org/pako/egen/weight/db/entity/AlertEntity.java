@@ -18,6 +18,7 @@ public class AlertEntity extends ReportingEntity implements Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 7972688363582210795L;
+
 	/** Message of the alert **/
 	private String alertMessage;
 
