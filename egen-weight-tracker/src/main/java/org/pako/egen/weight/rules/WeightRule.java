@@ -59,24 +59,23 @@ public class WeightRule extends BasicRule {
 	@Override
 	@Condition
 	public boolean evaluate(){
-
+		isHigherRule = isLowerRule = false;
 		Integer maxAcceptableWeight = propertyManager.getMaxAcceptableWeight();
 		Integer mixAcceptableWeight = propertyManager.getMinAcceptableWeight();
 
-		System.out.println("Inside Over Weight");
 		/** If the parameter is null, throw an invalid parameter exception **/
 		if(maxAcceptableWeight == null || mixAcceptableWeight == null || getCurrentValue() == null || getBaseweight() == null){
 			return false;
 		}
-		LOG.debug("Current value: " + getCurrentValue() + " Base weight: " + getBaseweight() + " Max Acceptable " + maxAcceptableWeight + " Min Acceptable " + mixAcceptableWeight);
+		LOG.debug("Current value: " + currentValue + " Base weight: " + baseweight + " Max Acceptable " + maxAcceptableWeight + " Min Acceptable " + mixAcceptableWeight);
 
 		/** The value is higher than expected **/
-		if(1- getBaseweight() / getCurrentValue() > maxAcceptableWeight/100){
+		if(1- (float)baseweight / currentValue > (float)maxAcceptableWeight/100){
 			isHigherRule = true;
 		}
 
 		/** The value is lower than expected **/
-		if(1- (float)getCurrentValue()/getBaseweight() > (float)mixAcceptableWeight/100){
+		if(1- (float)currentValue/baseweight > (float)mixAcceptableWeight/100){
 			isLowerRule = true;
 		}
 
@@ -97,13 +96,13 @@ public class WeightRule extends BasicRule {
 		/** Lower rule is Underweight **/
 		if(isLowerRule){
 			alert.setReportingType("UNDERWEIGHT");
-			alertMessage = "The current weight " + getCurrentValue() + " is below the minimum expected: " + (getBaseweight() - propertyManager.getMinAcceptableWeight()/100 * getBaseweight());
+			alertMessage = "The current weight " + currentValue + " is below the minimum expected: " + (baseweight - propertyManager.getMinAcceptableWeight()/100 * baseweight);
 		}
 
 		/** Lower rule is Overweight **/
 		if(isHigherRule){
 			alert.setReportingType("OVERWEIGHT");
-			alertMessage = "The current weight " + getCurrentValue() + " is above the maximum expected: " + (getBaseweight() + propertyManager.getMaxAcceptableWeight()/100 * getBaseweight());
+			alertMessage = "The current weight " + currentValue + " is above the maximum expected: " + (baseweight + propertyManager.getMaxAcceptableWeight()/100 * baseweight);
 			System.out.println("This is a higher rule. . .");
 		}
 

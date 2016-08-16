@@ -46,6 +46,8 @@ public class MetricsBo {
 
 		weightRule.setMetric(metric);
 
+		rulesEngine.registerRule(weightRule);
+
 		rulesEngine.fireRules();
 
 		/** If one of the rules matched the weight, add the corresponding states to the object **/

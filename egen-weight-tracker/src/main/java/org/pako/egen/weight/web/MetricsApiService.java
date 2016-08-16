@@ -84,6 +84,7 @@ public class MetricsApiService {
 
 			MetricEntity entity = new MetricEntity();
 			entity.setBaseWeight(initialWeight);
+			entity.setCalculatedWeight(incomingMetricBean.getValue());
 			entity.setMeasurementTime(incomingMetricBean.getTimeStamp());
 			entity.setCreateUserId(SERVICE_USER_ID);
 
