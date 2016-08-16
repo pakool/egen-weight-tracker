@@ -47,7 +47,7 @@ public class AlertsApiService {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/readByRange/", method = RequestMethod.GET)
+	@RequestMapping(value = "/readByRange/", method = RequestMethod.POST)
 	public ResponseEntity<List<AlertEntity>> listAllalertsInRange(@RequestBody IncomingRangeBean incomingRangeBean) {
 		List<AlertEntity> alerts = alertsBo.getAlertsList(incomingRangeBean.getInitialTimeStamp(), incomingRangeBean.getEndingTimeStamp());
 		if (alerts.isEmpty()) {

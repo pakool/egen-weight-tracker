@@ -57,7 +57,7 @@ public class MetricsApiService {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/readByRange/", method = RequestMethod.GET)
+	@RequestMapping(value = "/readByRange/", method = RequestMethod.POST)
 	public ResponseEntity<List<MetricEntity>> listAllMetricsInRange(@RequestBody IncomingRangeBean incomingRangeBean) {
 		List<MetricEntity> metrics = metricsBo.getMetricsList(incomingRangeBean.getInitialTimeStamp(), incomingRangeBean.getEndingTimeStamp());
 		if (metrics.isEmpty()) {
