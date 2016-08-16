@@ -10,6 +10,7 @@ import org.mongodb.morphia.annotations.Entity;
  *
  * @author Pako Castillo
  *
+ * TODO Add this entity to a new BO to keep track of the critical exceptions
  */
 @Entity
 public class ExceptionEntity extends ReportingEntity{

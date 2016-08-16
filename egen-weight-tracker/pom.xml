@@ -23,6 +23,7 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+			<!-- Required for environments with multiple JDKs -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>

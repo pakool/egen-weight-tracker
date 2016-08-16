@@ -32,6 +32,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
 
 /**
+ * Main DB Connection Manager which provides CRUD functionality to any DAO
+ * in the system
+ *
  * @author Pako Castillo
  *
  */

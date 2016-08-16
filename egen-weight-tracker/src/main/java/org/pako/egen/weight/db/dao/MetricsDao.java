@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Data Access for the Metrics Entity
+ *
  * @author Pako Castillo
  *
  */

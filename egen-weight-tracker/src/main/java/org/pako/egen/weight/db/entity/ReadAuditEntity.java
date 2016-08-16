@@ -10,6 +10,7 @@ import org.mongodb.morphia.annotations.Entity;
  *
  * @author Pako Castillo
  *
+ * TODO: Add this entity to the Alerts & Metrics BO for Audit purposes
  */
 @Entity
 public class ReadAuditEntity extends BaseEntity {

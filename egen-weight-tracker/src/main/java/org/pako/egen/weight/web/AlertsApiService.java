@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Alerts rest service which provides access to all the recorded alerts
+ *
  * @author Pako Castillo
  *
  */

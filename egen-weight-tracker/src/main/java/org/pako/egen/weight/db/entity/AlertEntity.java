@@ -8,6 +8,8 @@ import java.io.Serializable;
 import org.mongodb.morphia.annotations.Entity;
 
 /**
+ * Represents all the alerts in the system
+ *
  * @author Pako Castillo
  *
  */

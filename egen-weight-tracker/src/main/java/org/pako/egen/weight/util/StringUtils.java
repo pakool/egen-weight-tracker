@@ -12,8 +12,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * Different set of tools to handle strings
+ *
  * @author Pako Castillo
- * @author pako144@gmail.com
  *
  */
 public class StringUtils {

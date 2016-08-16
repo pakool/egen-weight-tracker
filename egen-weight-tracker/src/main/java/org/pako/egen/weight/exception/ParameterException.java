@@ -4,6 +4,8 @@
 package org.pako.egen.weight.exception;
 
 /**
+ * Main exception thrown when the specified parameters on different methods are not correct
+ *
  * @author Pako Castillo
  *
  */

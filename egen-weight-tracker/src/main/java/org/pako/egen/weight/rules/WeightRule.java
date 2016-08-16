@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * Contain 2 rules to be assessed for the incoming metrics
+ *
  * @author Pako Castillo
  *
  */

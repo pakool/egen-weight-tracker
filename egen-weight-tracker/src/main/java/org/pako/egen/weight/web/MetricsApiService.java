@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author fcastilloguerrero
+ * Provides access to read all the recorded metrics and to create new ones. The
+ * class will take the first received metric as the base, using the rule
+ * evaluators to assess the next metrics against the base
+ *
+ * @author Pako Castillo
  *
  */
 @RestController
@@ -59,14 +63,14 @@ public class MetricsApiService {
 	 */
 	@RequestMapping(value = "/readByRange/", method = RequestMethod.POST)
 	public ResponseEntity<List<MetricEntity>> listAllMetricsInRange(@RequestBody IncomingRangeBean incomingRangeBean) {
-		List<MetricEntity> metrics = metricsBo.getMetricsList(incomingRangeBean.getInitialTimeStamp(), incomingRangeBean.getEndingTimeStamp());
+		List<MetricEntity> metrics = metricsBo.getMetricsList(incomingRangeBean.getInitialTimeStamp(),
+				incomingRangeBean.getEndingTimeStamp());
 		if (metrics.isEmpty()) {
 			return new ResponseEntity<List<MetricEntity>>(HttpStatus.NO_CONTENT);// You
 
 		}
 		return new ResponseEntity<List<MetricEntity>>(metrics, HttpStatus.OK);
 	}
-
 
 	/**
 	 * Create a new metric with the specified parameters
@@ -77,8 +81,8 @@ public class MetricsApiService {
 	@RequestMapping(value = "/create/", method = RequestMethod.POST)
 	public ResponseEntity<Void> createMetric(@RequestBody IncomingMetricBean incomingMetricBean) {
 		System.out.println("New create request!!!. . . . " + incomingMetricBean);
-		if(incomingMetricBean != null){
-			if(currentCount++ == 0){
+		if (incomingMetricBean != null) {
+			if (currentCount++ == 0) {
 				initialWeight = incomingMetricBean.getValue();
 			}
 
