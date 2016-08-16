@@ -21,7 +21,7 @@
             <AppenderRef ref="MyFile"/>
         </Root>
         	
-    	<Logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="trace" >
+    	<Logger name="org.springframework.security" level="trace" >
     		<AppenderRef ref="MyFileS" level="debug" />
     	</Logger>
     	

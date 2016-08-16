@@ -3,6 +3,8 @@
  */
 package org.pako.egen.weight.db.entity;
 
+import java.io.Serializable;
+
 import org.mongodb.morphia.annotations.Entity;
 
 /**
@@ -10,8 +12,12 @@ import org.mongodb.morphia.annotations.Entity;
  *
  */
 @Entity
-public class AlertEntity extends ReportingEntity {
+public class AlertEntity extends ReportingEntity implements Serializable {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 7972688363582210795L;
 	/** Message of the alert **/
 	private String alertMessage;
 

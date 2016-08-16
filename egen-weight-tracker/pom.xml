@@ -8,17 +8,28 @@
   <!-- Hold most of the versions to be used in all the components -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.version>4.2.6.RELEASE</spring.version>
+    <spring.version>4.3.2.RELEASE</spring.version>
     <spring.boot.version>1.4.0.RELEASE</spring.boot.version>
     <log4j.version>2.6</log4j.version>
     <mongodb.driver.version>3.3.0</mongodb.driver.version>
     <spring.mongodb.version>1.9.2.RELEASE</spring.mongodb.version>
     <easy.rule.version>2.2.0</easy.rule.version>
     <morphia.version>1.2.1</morphia.version>
+<!--     <start-class>org.pako.egen.weight.core.ServiceRunner</start-class> -->
+    <start-class>org.pako.egen.weight.util.ApplicationConfig</start-class>
   </properties>
+  
   <build>
     <pluginManagement>
       <plugins>
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -26,16 +37,25 @@
            <configuration>
 	          <additionalClasspathElements>
 	            <additionalClasspathElement>conf</additionalClasspathElement>
-	          </additionalClasspathElements>
+	          </additionalClasspathElements>	          	
 	        </configuration>
         </plugin>
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
+        
       </plugins>
+      
     </pluginManagement>
   </build>
+  
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.4.0.RELEASE</version>
+ </parent>
+  
   <dependencyManagement>
      <dependencies>
         <dependency>
@@ -52,7 +72,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+<!--       <version>4.12</version> -->
       <scope>test</scope>
     </dependency>
 	<!-- The spring-web module provides basic web-oriented integration features 
@@ -62,6 +82,12 @@
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter</artifactId>
+	     <exclusions>
+	<exclusion>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-logging</artifactId>
+	</exclusion>
+</exclusions>
 <!-- 	    <version>${spring.boot.version}</version> -->
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
@@ -69,6 +95,12 @@
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-web</artifactId>
 <!-- 	    <version>${spring.boot.version}</version> -->
+<exclusions>
+	<exclusion>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-logging</artifactId>
+	</exclusion>
+</exclusions>
 	</dependency>
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
@@ -84,7 +116,7 @@
 	<dependency>
 		<groupId>org.apache.logging.log4j</groupId>
 		<artifactId>log4j-api</artifactId>
-		<version>${log4j.version}</version>
+<!-- 		<version>${log4j.version}</version> -->
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
@@ -94,18 +126,18 @@
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
 	    <artifactId>log4j-core</artifactId>
-	    <version>${log4j.version}</version>
+<!-- 	    <version>${log4j.version}</version> -->
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
 	    <artifactId>log4j-slf4j-impl</artifactId>
-	    <version>${log4j.version}</version>
+<!-- 	    <version>${log4j.version}</version> -->
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
 	<dependency>
 	    <groupId>org.mongodb</groupId>
 	    <artifactId>mongo-java-driver</artifactId>
-	    <version>${mongodb.driver.version}</version>
+<!-- 	    <version>${mongodb.driver.version}</version> -->
 	</dependency>
     <dependency>
         <groupId>org.mongodb.morphia</groupId>
@@ -126,15 +158,15 @@
 	<dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-mongodb</artifactId>
-	    <version>${spring.mongodb.version}</version>
+<!-- 	    <version>${spring.mongodb.version}</version> -->
 	</dependency>
-<!-- 	<dependency>  -->
-<!-- 		<groupId>org.springframework</groupId> -->
-<!-- 		<artifactId>spring-context</artifactId> -->
+	<dependency> 
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
 <!-- 		<version>${spring.version}</version> -->
 <!-- 		<type>jar</type> -->
 <!--         <scope>compile</scope> -->
-<!-- 	</dependency> -->
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
 	<dependency>
 	    <groupId>org.springframework</groupId>
@@ -145,8 +177,9 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-core</artifactId>
-<!-- 	    <version>${spring.version}</version> -->
+	    <version>${spring.version}</version>
 	</dependency>
+	
 	<dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-data-mongodb</artifactId>

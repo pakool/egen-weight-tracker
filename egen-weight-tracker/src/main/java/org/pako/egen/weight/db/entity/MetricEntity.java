@@ -3,6 +3,7 @@
  */
 package org.pako.egen.weight.db.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
@@ -14,7 +15,12 @@ import org.mongodb.morphia.annotations.Entity;
  *
  */
 @Entity
-public class MetricEntity extends BaseEntity {
+public class MetricEntity extends BaseEntity implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 2448355747430850052L;
 
 	/** Initial weight **/
 	private Integer baseWeight;

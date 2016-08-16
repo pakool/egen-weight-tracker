@@ -3,13 +3,22 @@
  */
 package org.pako.egen.weight.web.bean;
 
+import java.io.Serializable;
+
+import org.pako.egen.weight.util.StringUtils;
+
 /**
  * This bean is used to map the time range to be used in the retrieval of the records
  *
  * @author Pako Castillo
  *
  */
-public class IncomingRangeBean {
+public class IncomingRangeBean implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 3224619003028527468L;
 
 	private Long initialTimeStamp;
 
@@ -41,5 +50,10 @@ public class IncomingRangeBean {
 	 */
 	public void setEndingTimeStamp(Long endingTimeStamp) {
 		this.endingTimeStamp = endingTimeStamp;
+	}
+
+	@Override
+	public String toString(){
+		return StringUtils.reflectObject(this);
 	}
 }
