@@ -8,7 +8,7 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import org.easyrules.api.RulesEngine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.pako.egen.weight.core.ServiceRunner;
+import org.pako.egen.weight.ServiceRunner;
 import org.pako.egen.weight.db.entity.MetricEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

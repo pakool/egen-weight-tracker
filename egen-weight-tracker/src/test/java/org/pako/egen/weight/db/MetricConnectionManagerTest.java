@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
-import org.pako.egen.weight.core.ServiceRunner;
+import org.pako.egen.weight.ServiceRunner;
 import org.pako.egen.weight.db.dao.MorphiaConnectionManager;
 import org.pako.egen.weight.db.entity.MetricEntity;
 import org.pako.egen.weight.util.StringUtils;

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.pako.egen.weight.core.ServiceRunner;
+import org.pako.egen.weight.ServiceRunner;
 import org.pako.egen.weight.web.bean.IncomingMetricBean;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;

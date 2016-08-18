@@ -1,12 +1,11 @@
 /**
  *
  */
-package org.pako.egen.weight.core;
+package org.pako.egen.weight;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -18,8 +17,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  * @author Pako Castillo
  *
  */
-@Configuration
-@ComponentScan("org.pako.egen")
+@SpringBootApplication
 @PropertySources({
 	@PropertySource("classpath:application.properties")
 })
